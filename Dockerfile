@@ -7,18 +7,11 @@ RUN mkdir /var/log/jenkins
 RUN apt-get update -y
 RUN apt-get install tar -y
 RUN apt-get install wget -y
-#RUN apt-get install build-essential -y
-#RUN apt-get install vim -y
-#RUN apt-get -y install gcc
+RUN apt-get install build-essential -y
+RUN apt-get install vim -y
+RUN apt-get install gcc -y
 
-RUN mkdir /home/cmake-3.13
-WORKDIR /home/cmake-3.13
-RUN wget "https://cmake.org/files/v3.13/cmake-3.13.4-Linux-x86_64.tar.gz" 
-RUN pwd && ls -la
-RUN tar -xzf cmake-3.13.4-Linux-x86_64.tar.gz 
-RUN pwd && ls -la
-#RUN wget -qO- "https://cmake.org/files/v3.13/cmake-3.13.4-Linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local
-
+RUN wget -qO- "https://cmake.org/files/v3.13/cmake-3.13.4-Linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local
 RUN chown -R jenkins:jenkins /var/log/jenkins
 USER jenkins
 

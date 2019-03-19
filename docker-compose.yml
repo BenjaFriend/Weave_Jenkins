@@ -2,7 +2,7 @@ version: '2'
 
 services:
     jenkins:
-        image: myjenkins:latest
+        build: .        
         ports:
         - '8080:8080'
         volumes:
