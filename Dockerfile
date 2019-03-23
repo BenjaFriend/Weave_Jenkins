@@ -49,4 +49,4 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 ENV JAVA_OPTS="-Xmx4096m"
 ENV JENKINS_OPTS=" --handlerCountMax=100"
 
-ENTRYPOINT [ "sh", "-c", "cat /var/jenkins_home/secrets/initialAdminPassword" ]
+#ENTRYPOINT [ "sh", "-c", "cat /var/jenkins_home/secrets/initialAdminPassword" ]
