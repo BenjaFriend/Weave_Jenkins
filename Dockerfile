@@ -27,8 +27,8 @@ ENV BOOST_LIBRARYDIR="/usr/include/boost_1_69_0/stage/lib/"
 ENV BOOST_ROOT="/usr/include/boost_1_69_0"
 
 # Copy plugin settings
-COPY plugins.txt /var/jenkins_home/plugins.txt
-RUN /usr/local/bin/plugins.sh /var/jenkins_home/plugins.txt
+#COPY plugins.txt /var/jenkins_home/plugins.txt
+#RUN /usr/local/bin/plugins.sh /var/jenkins_home/plugins.txt
 
 # Add jobs
 COPY jobs/1-weave-server-job.xml /usr/share/jenkins/ref/jobs/1-weave-server-job/config.xml
@@ -48,3 +48,5 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # Set default options
 ENV JAVA_OPTS="-Xmx4096m"
 ENV JENKINS_OPTS=" --handlerCountMax=100"
+
+ENTRYPOINT [ "sh", "-c", "cat /var/jenkins_home/secrets/initialAdminPassword" ]
