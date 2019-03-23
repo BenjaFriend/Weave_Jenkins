@@ -27,6 +27,13 @@ ENV BOOST_LIBRARYDIR="/usr/include/boost_1_69_0/stage/lib/"
 ENV BOOST_ROOT="/usr/include/boost_1_69_0"
 
 # Create a jenkins user
+WORKDIR /var/jenkins_home/jobs
+RUN mkdir Weave_Server_Build
+
+# Copy this jenkins config file to the docker container
+COPY Weave_Server_Build/config.xml /var/jenkins_home/jobs/Weave_Server_Build/config.xml
+
+# Make a log directory and a jenkins user
 RUN chown -R jenkins:jenkins /var/log/jenkins
 USER jenkins
 
