@@ -10,15 +10,29 @@ RUN apt-get install wget -y
 RUN apt-get install build-essential -y
 RUN apt-get install gcc g++ git -y
 
+
+# Install Clang 8.0
+RUN apt-get install -y                                                                                  \
+   xz-utils                                                                                             \
+   build-essential                                                                                      \
+   curl                                                                                                 \
+   && rm -rf /var/lib/apt/lists/*                                                                       \
+   && curl -SL http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz     \
+   | tar -xJC . &&                                                                                      \
+   mv clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04 clang_8.0.0 &&                                     \
+   echo 'export PATH=/clang_8.0.0/bin:$PATH' >> ~/.bashrc &&                                            \
+   echo 'export LD_LIBRARY_PATH=/clang_8.0.0/lib:LD_LIBRARY_PATH' >> ~/.bashrc
+
+
 # Install Cmake
 RUN wget -qO- "https://cmake.org/files/v3.13/cmake-3.13.4-Linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C /usr/local
 
 #Install Boost
 WORKDIR /home
-RUN pwd && ls -la
-RUN wget --max-redirect 3 https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz
-RUN tar zxf boost_1_69_0.tar.gz -C /usr/include/ 
-RUN rm -rf /home/boost_1_69_0.tar.gz
+RUN pwd && ls -la                                                                                       \
+    && wget --max-redirect 3 https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz  \
+    && tar zxf boost_1_69_0.tar.gz -C /usr/include/                                                     \ 
+    && rm -rf /home/boost_1_69_0.tar.gz
 
 WORKDIR /usr/include/boost_1_69_0/
 RUN ./bootstrap.sh
